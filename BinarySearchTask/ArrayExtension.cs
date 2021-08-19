@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace BinarySearchTask
 {
@@ -26,7 +26,42 @@ namespace BinarySearchTask
         /// </example>
         public static int? BinarySearch(int[] source, int value)
         {
-            throw new NotImplementedException("You need to implement this function.");
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            return BSAlgorithm(source, value, 0, source.Length - 1);
+        }
+
+        public static int? BSAlgorithm(int[] source, int value, int left, int right)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (left <= right)
+            {
+                int i = left + ((right - left) / 2);
+                if (source[i] == value)
+                {
+                    return i;
+                }
+
+                if (source[i] < value)
+                {
+                    left = i + 1;                    
+                    return BSAlgorithm(source, value, left, right);
+                }
+                else 
+                {
+                    right = i - 1;
+                    return BSAlgorithm(source, value, left, right);
+                }                
+            }
+
+            return null;
         }
     }
 }
